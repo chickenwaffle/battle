@@ -11,7 +11,7 @@ int main()
 
     // Load a sprite to display
     sf::Texture texture;
-    if (!texture.loadFromFile("cb.bmp"))
+    if (!texture.loadFromFile("evilwilford.png"))
         return EXIT_FAILURE;
     sf::Sprite sprite(texture);
 
@@ -50,8 +50,9 @@ int main()
 	// Move sprite
 	sprite.move(spritex, 0);
 
+	// Enemy wall collision detection
 	Vector2f pos = sprite.getPosition();
-	if (pos.x > 800 || pos.x < 0) spritex = -spritex;
+	if (pos.x > 680 || pos.x < 0) spritex = -spritex;
 	
 
         // Draw the sprite
