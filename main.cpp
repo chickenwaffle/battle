@@ -45,7 +45,7 @@ int main()
 		bossFight.play();
 
         // Clear screen
-        app.clear(Color::White);
+        app.clear(Color::Black);
 
 	// Move sprite
 	sprite.move(spritex, 0);
