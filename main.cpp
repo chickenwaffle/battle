@@ -2,7 +2,6 @@
 #include <SFML/Audio.hpp>
 using namespace sf;
 
-
 int main()
 {
     // Create the main window
@@ -10,13 +9,16 @@ int main()
     app.setVerticalSyncEnabled(true);
 
     // Load a sprite to display
-    sf::Texture texture;
-    if (!texture.loadFromFile("evilwilford.png"))
-        return EXIT_FAILURE;
-    sf::Sprite sprite(texture);
+    sf::Texture tex1;
+    if (!tex1.loadFromFile("evilwilford.png")) return EXIT_FAILURE;
+    sf::Sprite wilford(tex1);
+    float wilfordx = 3;
 
-    // Move sprite distance
-    float spritex = 3;
+    sf::Texture tex2;
+    if (!tex2.loadFromFile("stars.jpg")) return EXIT_FAILURE;
+    sf::Sprite starfield(tex2);
+    float starfieldy = 2;
+
 
     // Load Boss Music
     Music bossIntro;
@@ -26,8 +28,10 @@ int main()
     if (!bossFight.openFromFile("boss2.ogg")) return EXIT_FAILURE;
     bossFight.setLoop(true);
 
-    //Play the boss intro
+
+    //Start the music
     bossIntro.play();
+
 
 	// Start the game loop
     while (app.isOpen())
@@ -41,22 +45,28 @@ int main()
                 app.close();
         }
 
+
+	// Loop music 
 	if (bossIntro.getStatus() == Music::Stopped && bossFight.getStatus() == Music::Stopped)
 		bossFight.play();
 
+
         // Clear screen
-        app.clear(Color::Black);
+        app.draw(starfield);
 
-	// Move sprite
-	sprite.move(spritex, 0);
 
-	// Enemy wall collision detection
-	Vector2f pos = sprite.getPosition();
-	if (pos.x > 680 || pos.x < 0) spritex = -spritex;
+	// Move wilford
+	wilford.move(wilfordx, 0);
+
+	
+	// Wilford boundary collision detection
+	Vector2f pos = wilford.getPosition();
+	if (pos.x > 680 || pos.x < 0) wilfordx = -wilfordx;
 	
 
         // Draw the sprite
-        app.draw(sprite);
+        app.draw(wilford);
+
 
         // Update the window
         app.display();
