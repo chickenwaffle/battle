@@ -5,7 +5,7 @@ using namespace sf;
 int main()
 {
     // Create the main window
-    sf::RenderWindow app(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow app(sf::VideoMode(800, 600), "DIABEETUS");
     app.setVerticalSyncEnabled(true);
 
     // Load a sprite to display
@@ -17,6 +17,11 @@ int main()
     sf::Texture tex2;
     if (!tex2.loadFromFile("stars.jpg")) return EXIT_FAILURE;
     sf::Sprite starfield(tex2);
+
+    // Starfield needs to start in the middle
+    starfield.setPosition(0, -800);
+
+    // Starfield scroll speed
     float starfieldy = 2;
 
 
@@ -55,16 +60,20 @@ int main()
         app.draw(starfield);
 
 
-	// Move wilford
+	// Move sprites
 	wilford.move(wilfordx, 0);
+	starfield.move(0, starfieldy);
 
 	
-	// Wilford boundary collision detection
+	// Collision detection
 	Vector2f pos = wilford.getPosition();
 	if (pos.x > 680 || pos.x < 0) wilfordx = -wilfordx;
 	
+	pos = starfield.getPosition();
+	if (pos.y == 0) starfield.setPosition(0, -800);
+	
 
-        // Draw the sprite
+        // Draw the sprites
         app.draw(wilford);
 
 
