@@ -13,6 +13,10 @@ int main()
     if (!tex1.loadFromFile("evilwilford.png")) return EXIT_FAILURE;
     sf::Sprite wilford(tex1);
     float wilfordx = 3;
+    float wilfordy = 3;
+
+    // Speed of wilford head bob
+    float change_wilfordy = .5;
 
     sf::Texture tex2;
     if (!tex2.loadFromFile("stars.jpg")) return EXIT_FAILURE;
@@ -61,13 +65,19 @@ int main()
 
 
 	// Move sprites
-	wilford.move(wilfordx, 0);
+	wilford.move(wilfordx, wilfordy);
+	wilfordy += change_wilfordy;
+
+	// Scroll starfield
 	starfield.move(0, starfieldy);
 
 	
 	// Collision detection
 	Vector2f pos = wilford.getPosition();
-	if (pos.x > 680 || pos.x < 0) wilfordx = -wilfordx;
+	if (pos.x < 0 || pos.x > 680) wilfordx = -wilfordx;
+
+	// This piece defines the head bob
+	if (wilfordy < -5 || wilfordy > 5) change_wilfordy = -change_wilfordy;
 	
 	pos = starfield.getPosition();
 	if (pos.y == 0) starfield.setPosition(0, -800);
