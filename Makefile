@@ -1,2 +1,2 @@
 all:
-	g++ main.cpp -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ main.cpp -o battle.exe -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
